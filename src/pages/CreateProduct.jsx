@@ -48,7 +48,7 @@ const CreateProduct = () => {
 
   const fetchBrands = async () => {
     const res = await axios.get(`${URL}/api/brands`)
-    console.log(res.data)
+    console.log("see brand stuff",res.data)
     setBrand(res.data)
   }
 

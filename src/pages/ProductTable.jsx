@@ -139,6 +139,7 @@ const ProductTable = () => {
             <th scope="col" className="py-4 px-6 ">color</th>
             <th scope="col" className="py-4 px-6 ">size</th>
             <th scope="col" className="py-4 px-6 ">category</th>
+            <th scope="col" className="py-4 px-6 ">brand</th>
             <th scope="col" className="py-4 px-6 ">edit</th>
             <th scope="col" className="py-4 px-6 ">Delete</th>
           </tr>
@@ -155,6 +156,9 @@ const ProductTable = () => {
               <td className="px-6">{p?.size ? p.size : 'none'}</td>
               <td className="px-6">
                 {p?.Category?.name?.slice(0,6)+"..."}
+                </td>
+                <td className="px-6">
+                {p?.brand?.slice(0,6)+"..."}
                 </td>
               <Link to={`/editproduct/${p.id}`}><td className="py-4 px-11 pt-[25px]"><GrEdit /></td></Link>
           <td className="py-4 px-11" onClick={() => handleDelete(p.id)}><RiDeleteBinLine className='text-red-600' /></td>

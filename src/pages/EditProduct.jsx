@@ -27,6 +27,7 @@ const EditProduct = () => {
     color: "",
     size: "",
     availability:"",
+    brand:"",
     imageUrl: null,
   })
   const [file, setFile] = useState(null)
@@ -45,6 +46,7 @@ const EditProduct = () => {
 
   const fetchBrands = async () => {
     const res = await axios.get(`${URL}/api/brands`)
+    console.log("see brand stuff",res.data)
     setBrands(res.data)
   }
 
@@ -92,6 +94,7 @@ const EditProduct = () => {
       color: product.color,
       size: product.size,
       categoryId: selectedCategoryId,
+      brand:selectedBrand,
       availability:selectedAvailability
     }
 
