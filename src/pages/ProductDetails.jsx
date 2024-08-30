@@ -17,6 +17,7 @@ import { IoMdCheckmark } from "react-icons/io";
 import BestSellerCard from '../components/BestSellerCard';
 import { RxCross1 } from "react-icons/rx";
 import { PaystackButton } from 'react-paystack';
+import notyet from '../assets/notyet.png'
 
 
 const ProductDetails = () => {
@@ -309,7 +310,7 @@ const paymentProps = {
         <p onClick={() => {navigate(-1)}} className='flex items-center gap-x-2 text-gray-500 px-16 mt-9 cursor-pointer'>Home <MdOutlineKeyboardArrowRight /> Product details</p>
 
         {isLoading ? (<p className='flex justify-center items-center h-screen'>Loading ...</p>) : (<div className='flex justify-center gap-x-9 mt-12'>
-            <img src={imageUrl ? imageUrl : "https://t3.ftcdn.net/jpg/02/52/38/80/360_F_252388016_KjPnB9vglSCuUJAumCDNbmMzGdzPAucK.jpg"} className='object-contain w-[950px] h-[600px] rounded' />
+            <img src={imageUrl ? imageUrl : notyet} className='object-contain w-[950px] h-[600px] rounded' />
 
             <div className='bg-gray-100 w-[500px] px-2 py-2'>
                 {/* <p className='text-3xl font-semibold'>{title}</p> */}

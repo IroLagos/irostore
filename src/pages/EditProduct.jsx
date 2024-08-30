@@ -31,14 +31,21 @@ const EditProduct = () => {
   })
   const [file, setFile] = useState(null)
   const [selectedCategoryId, setSelectedCategoryId] = useState("")
+  const [selectedBrand, setSelectedBrand] = useState("")
   const [selectedAvailability, setSelectedAvailability]=useState([])
   const [categories, setCategories] = useState([])
+  const [brands, setBrands] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
 
   const fetchCategories = async () => {
     const res = await axios.get(`${URL}/api/categories`)
     setCategories(res.data)
+  }
+
+  const fetchBrands = async () => {
+    const res = await axios.get(`${URL}/api/brands`)
+    setBrands(res.data)
   }
 
   const fetchProducts = async () => {
@@ -55,6 +62,7 @@ const EditProduct = () => {
   useEffect(() => {
     fetchCategories()
     fetchProducts()
+    fetchBrands()
   }, [productId])
 
   const handleInputChange = (e) => {
@@ -168,8 +176,15 @@ const EditProduct = () => {
             <input name="size" value={product.size} onChange={handleInputChange} className="border border-black px-2 py-1" placeholder="Size " />
             <select value={selectedCategoryId} onChange={(e) => setSelectedCategoryId(e.target.value)} className="border border-black px-2 py-1">
               <option value="">Select Category:</option>
-              {categories.map(item => (
+              {categories?.map(item => (
                 <option key={item.id} value={item.id}>{item.name}</option>
+              ))}
+            </select>
+
+            <select value={selectedBrand} onChange={(e) => setSelectedBrand(e.target.value)} className="border border-black px-2 py-1">
+              <option value="">Select Brand:</option>
+              {brands?.map(item => (
+                <option key={item.id} value={item.name}>{item.name}</option>
               ))}
             </select>
 

@@ -30,6 +30,8 @@ const CreateProduct = () => {
     // const [categoryId, setCategoryId]=useState("")
     const [selectedCategoryId, setSelectedCategoryId]=useState([])
     const [category, setCategory]=useState([])
+    const [selectedBrand, setSelectedBrand]=useState([])
+    const [brand, setBrand]=useState([])
     const [availability, setAvailability]=useState([])
     const [selectedAvailability, setSelectedAvailability]=useState([])
     const [isLoading, setIsLoading] = useState(false)
@@ -44,10 +46,24 @@ const CreateProduct = () => {
     fetchCategories()
   },[])
 
+  const fetchBrands = async () => {
+    const res = await axios.get(`${URL}/api/brands`)
+    console.log(res.data)
+    setBrand(res.data)
+  }
+
+  useEffect(() => {
+    fetchBrands()
+  },[])
+
 
     const handleCategoryId = (e) => {       
         setSelectedCategoryId(e.target.value);
     };
+
+    const handleBrand = (e) => {       
+      setSelectedBrand(e.target.value);
+  };
 
     const handleAvailability = (e) => {       
       setSelectedAvailability(e.target.value);
@@ -65,6 +81,7 @@ const CreateProduct = () => {
     formData.append('color', color);
     formData.append('size', size);
     formData.append('categoryId', selectedCategoryId);
+    formData.append('brand', selectedBrand);
     formData.append('availability', selectedAvailability);
     if (file) {
       formData.append('imageUrl', file);
@@ -110,6 +127,13 @@ const CreateProduct = () => {
             <option value="">Select Category:</option>
             {category.map(item => (
               <option key={item.id} value={item.id}>{item.name}</option>
+            ) )}
+          </select>
+
+          <select value={selectedBrand} onChange={handleBrand} className="border border-black px-2 py-1">
+            <option value="">Select Brand:</option>
+            {brand.map(item => (
+              <option key={item.id} value={item.name}>{item.name}</option>
             ) )}
           </select>
 

@@ -18,6 +18,9 @@ import PurchaseTable from './pages/PurchaseTable'
 import Search from './pages/Search'
 import Sales from './pages/Sales'
 import Register from './pages/Register'
+import EditBrand from './pages/EditBrand'
+import CreateBrand from './pages/CreateBrand'
+import BrandTable from './pages/BrandTable'
 
 const App = () => {
   return (
@@ -39,6 +42,9 @@ const App = () => {
       <Route exact path="/editproduct/:id" element={<ProtectedRoute><EditProduct /></ProtectedRoute>}/>
       <Route exact path="/createbanner" element={<ProtectedRoute><CreateBanner /></ProtectedRoute>}/>
       <Route exact path="/purchasetable" element={<ProtectedRoute><PurchaseTable /></ProtectedRoute>}/>
+      <Route exact path="/editbrand/:id" element={<ProtectedRoute><EditBrand /></ProtectedRoute>}/>
+      <Route exact path="/createbrand" element={<ProtectedRoute><CreateBrand /></ProtectedRoute>}/>
+      <Route exact path="/brandtable" element={<ProtectedRoute><BrandTable /></ProtectedRoute>}/>
       {/* <Route exact path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}/> */}
     </Routes>
   )

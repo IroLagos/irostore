@@ -38,33 +38,38 @@ const Sidebar = () => {
             <div>
         <p className='text-[#5b3e31] font-bold mt-9'>Menu</p>
 
-        <Link to={'/dashboard'}> <div className='flex gap-x-3 items-center hover:bg-blue-200  px-2 mt-6 rounded'>
+        <Link to={'/dashboard'}> <div className='flex gap-x-3 items-center hover:bg-[#EADDCA]  px-2 mt-6 rounded'>
     
         <FiUsers className='' />
         <p className=' py-1 text-center '>Users</p>
         </div></Link>
 
-        <Link to={'/purchasetable'}> <div className='flex gap-x-3 items-center hover:bg-blue-200  px-2 mt-6 rounded'>
+        <Link to={'/purchasetable'}> <div className='flex gap-x-3 items-center hover:bg-[#EADDCA]  px-2 mt-6 rounded'>
         <BiPurchaseTag />
         <p className='py-1 text-center'>Purchases</p>
         </div></Link>
 
-        <Link to={'/categorytable'}> <div className='flex gap-x-3 items-center hover:bg-blue-200  px-2 mt-6 rounded'>
+        <Link to={'/categorytable'}> <div className='flex gap-x-3 items-center hover:bg-[#EADDCA]  px-2 mt-6 rounded'>
         <TbCategory />
         <p className='py-1 text-center'>Categories</p>
         </div></Link>
 
-        <Link to={'/producttable'}><div className='flex gap-x-3 items-center hover:bg-blue-200  px-2 mt-6 rounded'>
+        <Link to={'/brandtable'}> <div className='flex gap-x-3 items-center hover:bg-[#EADDCA]  px-2 mt-6 rounded'>
+        <TbCategory />
+        <p className='py-1 text-center'>Brands</p>
+        </div></Link>
+
+        <Link to={'/producttable'}><div className='flex gap-x-3 items-center hover:bg-[#EADDCA]  px-2 mt-6 rounded'>
         <GoPackage />
         <p className='py-1 text-center'>Products</p>
         </div></Link>
 
-        <Link to={'/createbanner'}><div className='flex gap-x-3 items-center hover:bg-blue-200  px-2 mt-6 rounded'>
+        <Link to={'/createbanner'}><div className='flex gap-x-3 items-center hover:bg-[#EADDCA]  px-2 mt-6 rounded'>
         <PiNotepad />
         <p className='py-1 text-center'>Banner Display</p>
         </div></Link>
 
-        <Link to={'/settings'}><div className='flex gap-x-3 items-center hover:bg-blue-200  px-2 mt-6 rounded'>
+        <Link to={'/settings'}><div className='flex gap-x-3 items-center hover:bg-[#EADDCA]  px-2 mt-6 rounded'>
         <IoSettingsOutline className=''/>
         <p className='py-1 text-center'>Settings</p>
         </div></Link>
