@@ -16,6 +16,7 @@ import Banner from '../components/Banner';
 import { IoMdCheckmark } from "react-icons/io";
 import BestSellerCard from '../components/BestSellerCard';
 import { RxCross1 } from "react-icons/rx";
+import { PaystackButton } from 'react-paystack';
 
 
 const ProductDetails = () => {
@@ -90,6 +91,8 @@ const handleFifth = () => {
     setRating(5)
 }
 
+console.log("this is user details", user)
+
 const toastStyles = {
   success: {
 
@@ -131,6 +134,14 @@ const email = user?.email;
 const fname = user?.fname;
 
 const userId = user?.id;
+
+const address = user?.address
+
+const city = user?.city
+
+const state = user?.state
+
+const country = user?.country
 
 const handleIncrease = () => {
      setQuantity(quantity + 1)
@@ -187,17 +198,18 @@ const handleBuyNow = async () => {
         const res = await axios.post(`${URL}/api/purchases/create`,{
             quantity: quantity,
             productId:product.id,
-            // price: product.price,
-            // discount:product.discount,
             title: product.title,
             description: product.description,
             imageUrl: product.imageUrl,
             size: product.size,
             color: product.color,
-            // totalPrice:totalPrice,
             email:email,
             fname:fname,
             userId:userId,
+            address:address,
+            city:city,
+            state:state,
+            country:country
             // productId:productId
         });
         console.log("see purchase", res.data)
@@ -239,6 +251,39 @@ const handleReview = async () => {
      
     }
 }
+
+const publicKey = "pk_test_6fa7dbd015006b4b712c4d8bfedcd53cb4f93320"
+
+
+const paymentProps = {
+    amount: product.price * 100,
+    quantity: quantity,
+    productId:product.id,
+    title: product.title,
+    description: product.description,
+    imageUrl: product.imageUrl,
+    size: product.size,
+    color: product.color,
+    email:email,
+    fname:fname,
+    userId:userId,
+    address:address,
+    city:city,
+    state:state,
+    country:country,
+    publicKey,
+    text:"Buy Now",
+    // onSuccess: () => alert("Thank you for booking!!"),
+    onClose: () => alert("Are you sure you want to close"),
+    onSuccess: ({ reference }) => {
+      alert(
+        `Your purchase was successful! Transaction reference: ${reference}`
+      );
+      handleBuyNow();
+      navigate('/')
+    //   navigate(`/bookingconfirmation/${bookingId}`)
+    },
+  }
 
 
 
@@ -290,7 +335,9 @@ const handleReview = async () => {
 
            <p className='font-thin mt-6 flex items-center gap-x-2'>Availability:{availability === 'In Stock' ?  (<p className='flex gap-x-2 items-center'><span className='text-green-600 font-normal'>{availability}</span><IoMdCheckmark color='green' /></p>) : (<p className='flex gap-x-2 items-center'><span className='text-red-600 font-normal'>{availability}</span><RxCross1 color='red' /></p> )}</p>
 
-           <p className='mt-4 text-lg font-semibold'>Size: <span className='font-normal text-xl'>{size}</span></p>
+           <p className='mt-4 text-lg font-semibold'>Size: <span className='font-normal text-xl uppercase'>{size}</span></p>
+
+           <p className='mt-4 text-lg font-semibold'>Color: <span className='font-normal text-xl uppercase'>{color}</span></p>
                 {/* <p className='mt-6 max-w-[450px]'>{description}.</p>
                 <p className='mt-4 text-2xl'>Price: {discount? <span className='font-bold'>{discount}</span> : <span className='font-bold'>{price}</span>}</p>  */}
               
@@ -313,7 +360,8 @@ const handleReview = async () => {
 
 
                 <div className='flex gap-x-4 mt-3'>
-                    <button className='border-2 border-black font-medium rounded-full px-12 py-2' onClick={handleBuyNow}>{isLoading2? "Loading . . ." : "Buy Now"}</button>
+                {user ? <PaystackButton {...paymentProps} disabled={isLoading} className="border-2 border-black font-medium rounded-full px-12 py-2">{isLoading ? "Loading. . ." : "Buy Now"}</PaystackButton> : (<button onClick={()=> navigate('/login')} className="border-2 border-black font-medium rounded-full px-12 py-2">{isLoading ? "Loading..." : "Buy Now"}</button> )}
+                    {/* <button className='border-2 border-black font-medium rounded-full px-12 py-2' onClick={handleBuyNow}>{isLoading2? "Loading . . ." : "Buy Now"}</button> */}
                     <button className='bg-[#5b3e31] text-white font-semibold rounded-full px-12 py-2' onClick={() => handleAddToCart(product, quantity)}>Add to Cart</button>
                 </div>
 

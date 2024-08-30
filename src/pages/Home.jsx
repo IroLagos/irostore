@@ -104,7 +104,7 @@ useEffect(() => {
        <div className='relative flex justify-center items-center mt-12'>
   <button 
     onClick={prevSlide2} 
-    className='absolute left-[220px] bg-gray-200 p-2 rounded-full'
+    className='absolute left-[20px] bg-gray-200 p-2 rounded-full'
   >
     <FaChevronLeft/>
   </button>
@@ -116,7 +116,7 @@ useEffect(() => {
 
 <Link to={`/productdetails/${d.id}`}>
   <div key={d.id}>
-  <BestSellerCard title={d.title} heading={d.heading} imageUrl={d?.imageUrl} price={d.price} discount={d?.discount} description={d.description}/>
+  <BestSellerCard title={d.title} heading={d.heading} imageUrl={d?.imageUrl} price={d.price} discount={d?.discount} description={d.description} color={d.color}/>
   </div>
   </Link>
 ))}
@@ -124,7 +124,7 @@ useEffect(() => {
 
 <button 
     onClick={nextSlide2} 
-    className='absolute right-[220px] bg-gray-200 p-2 rounded-full'
+    className='absolute right-[20px] bg-gray-200 p-2 rounded-full'
   >
        <FaChevronRight/>
   </button>

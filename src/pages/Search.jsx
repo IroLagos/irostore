@@ -45,6 +45,7 @@ const Search = () => {
     },[search])
 
     const handleSearch = (e) => {
+
         setSearch(e.target.value);
       };
     
@@ -55,7 +56,7 @@ const Search = () => {
   
 
   return (
-    <div className='h-[100vh] bg-gray-200 px-3 md:px-9'>
+    <div className='bg-gray-200 py-2 px-3 md:px-9'>
 
 <div className='pt-9 flex justify-between px-3'>
 <form onSubmit={handleSearchSubmit}>
@@ -88,10 +89,13 @@ const Search = () => {
 
 </div>
 
+
 </div>
+
+<div className='mb-24'></div> 
         
-        
-        
+
+
         </div>
   )
 }

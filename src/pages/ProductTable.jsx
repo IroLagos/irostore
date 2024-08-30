@@ -12,12 +12,28 @@ const ProductTable = () => {
   const [titleFilter, setTitleFilter] = useState('');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState([]);
+
+  
+  // const fetchCategory = async () => {
+
+  //   const res = await axios.get(`${URL}/api/categories/${categoryId}`)
+  //   console.log(res.data)
+  //   setCategoryTitle(res.data.title)
+  // }
+
+  // useEffect(() => {
+  //   fetchCategory()
+  // },[categoryId])
+  
+
+
+
 
   const fetchProducts = async () => {
 
     const res = await axios.get(`${URL}/api/products`)
-    console.log(res.data)
+    console.log("see products",res.data)
     setProducts(res.data)
   }
 
@@ -27,7 +43,7 @@ const ProductTable = () => {
 
 
   const fetchTitle = async (searchParams = {}) => {
-
+    
     const {title} = searchParams;
 
     let url = `${URL}/api/products`;
@@ -84,7 +100,7 @@ const ProductTable = () => {
         <Sidebar />
         <div className='flex-1 ml-[270px]'>
         <div className='p-9'>
-        <p className='font-bold text-3xl text-blue-600'>Products</p>
+        <p className='font-bold text-3xl text-[#5b3e31]'>Products</p>
       <div className="mb-4 text-right">
         <form onSubmit={handleSearchSubmit} className='mb-4 text-right'>
         <input
@@ -92,28 +108,28 @@ const ProductTable = () => {
           placeholder="Search by title"
           value={search}
           onChange={handleSearch}
-          className="p-2 border border-blue-400 rounded"
+          className="p-2 border border-[#5b3e31] rounded"
         />
 
-<button type="submit" className="ml-2 bg-blue-500 text-white px-4 py-2 rounded-md">
+<button type="submit" className="ml-2 bg-[#5b3e31] text-white px-4 py-2 rounded-md">
               Search
             </button>
 
             </form>
 
-        <select value={titleFilter} onChange={handleTitleFilter} className="ml-2 mr-2 p-2 border border-blue-400  rounded">
+        <select value={titleFilter} onChange={handleTitleFilter} className="ml-2 mr-2 p-2 border border-[#5b3e31]  rounded">
           <option value="">Filter</option>
           {uniqueTitle.map((title, index) => (
             <option key={index} value={title}>{title}</option>
           ))}
         </select>
 
-        <Link to={'/createproduct'}><button className='bg-blue-500 text-white px-6 py-2 rounded-md'>Create Product</button></Link>
+        <Link to={'/createproduct'}><button className='bg-[#5b3e31] text-white px-6 py-2 rounded-md'>Create Product</button></Link>
       </div>
 
 
       <table className="w-full bg-white border text-left border-gray-200 rounded-md">
-        <thead className='bg-blue-200 text-blue-700  rounded-md'>
+        <thead className='bg-[#EADDCA] text-[#5b3e31]  rounded-md'>
           <tr >
             <th scope="col" className="py-4 px-6 ">image</th>
             <th scope="col" className="py-4 px-6 ">title</th>
@@ -137,7 +153,9 @@ const ProductTable = () => {
               <td className="px-6">{p?.discount ? p.discount : 'none'}</td>
               <td className="px-6">{p?.color ? p.color : 'none'}</td>
               <td className="px-6">{p?.size ? p.size : 'none'}</td>
-              <td className="px-6">{p?.categoryId?.slice(0,6)+"..."}</td>
+              <td className="px-6">
+                {p?.Category?.name?.slice(0,6)+"..."}
+                </td>
               <Link to={`/editproduct/${p.id}`}><td className="py-4 px-11 pt-[25px]"><GrEdit /></td></Link>
           <td className="py-4 px-11" onClick={() => handleDelete(p.id)}><RiDeleteBinLine className='text-red-600' /></td>
   

@@ -15,7 +15,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [showSignIn, setShowSignIn] = useState(false);
   
-  const { login} = useAuth();
+  const { login, user} = useAuth();
 
   const [email, setEmail] = useState('')
 
@@ -87,7 +87,7 @@ const Navbar = () => {
         </div> */}
 
 
-            <p className='font-thin text-lg cursor-pointer'>Sales</p>
+            <p onClick={() => navigate('/sales')} className='font-thin text-lg cursor-pointer'>Sales</p>
             <div className="relative">
               <p onClick={handleOpen} className='font-thin text-lg cursor-pointer'>Women</p>
               {open && <div className=" bg-white px-3 py-6 z-50 absolute mt-4 left-1/2 transform -translate-x-1/2 border">
@@ -125,9 +125,8 @@ const Navbar = () => {
           </div>
 
           <div className='flex gap-x-6'>
-
+          {user && <p className='font-medium mt-1'>Hi {user.fname}</p>}
             <div>
-
               <p className='font-semibold text-2xl cursor-pointer mt-1' onClick={toggleSignIn}><GoPerson /></p>
               {showSignIn && (
                 <div className='bg-white border absolute w-[450px] mt-3 right-0 px-5 py-3 z-50'>
@@ -154,7 +153,7 @@ const Navbar = () => {
                   </div>
 
                   <div className='mt-9'>
-                    <button className='border-2 border-black w-full px-9 py-2 rounded-full'>SIGN UP </button>
+                    <button onClick={() => navigate('/register')} className='border-2 border-black w-full px-9 py-2 rounded-full'>SIGN UP </button>
                   </div>
 
                   <div className='mb-16'></div>

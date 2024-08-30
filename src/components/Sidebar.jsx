@@ -36,7 +36,7 @@ const Sidebar = () => {
         </div> */}
 
             <div>
-        <p className='text-blue-500 font-semibold mt-9'>Menu</p>
+        <p className='text-[#5b3e31] font-bold mt-9'>Menu</p>
 
         <Link to={'/dashboard'}> <div className='flex gap-x-3 items-center hover:bg-blue-200  px-2 mt-6 rounded'>
     
@@ -74,11 +74,11 @@ const Sidebar = () => {
         <p className='hover:bg-[#F3D8A7] py-1 text-center'>Contact Support</p>
         </div> */}
 
-        <p className='text-blue-500 font-semibold mt-9 '>Profile</p>
+        <p className='text-[#5b3e31] font-bold mt-9 '>Profile</p>
 
 
         <div className='flex gap-x-5 items-center mt-9 '>
-        <div className='bg-blue-700 text-white rounded-full w-11 h-11 flex justify-center text-2xl items-center'>{user?.fname.charAt()}</div>
+        <div className='bg-[#5b3e31] text-white rounded-full w-11 h-11 flex justify-center text-2xl items-center'>{user?.fname.charAt()}</div>
         <div>
             <p className='font-semibold text-lg'>{user?.fname},{user?.lname}</p>
             <p className='font-light text-gray-400'>{user?.email}</p>

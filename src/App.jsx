@@ -16,6 +16,8 @@ import EditProduct from './pages/EditProduct'
 import CreateBanner from './pages/CreateBanner'
 import PurchaseTable from './pages/PurchaseTable'
 import Search from './pages/Search'
+import Sales from './pages/Sales'
+import Register from './pages/Register'
 
 const App = () => {
   return (
@@ -23,8 +25,10 @@ const App = () => {
       <Route exact path='/' element={<Home/>} />
       <Route exact path='/productdetails/:id' element={<ProductDetails />} />
       <Route exact path='/cart' element={<Cart />} />
-      <Route exact path="/login" element={<Login/>}/>
+      {/* <Route exact path="/login" element={<Login/>}/> */}
+      <Route exact path="/register" element={<Register/>}/>
       <Route exact path="/search" element={<Search/>}/>
+      <Route exact path="/sales" element={<Sales/>}/>
       <Route exact path='/admin' element={<AdminLogin />} />
       <Route exact path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}/>
       <Route exact path="/producttable" element={<ProtectedRoute><ProductTable /></ProtectedRoute>}/>

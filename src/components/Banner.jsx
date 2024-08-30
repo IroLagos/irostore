@@ -34,7 +34,7 @@ const Banner = () => {
 
   return (
     <div className='w-full bg-[#5b3e31] text-white text-center fixed top-0 left-0 right-0 z-50 py-2'>
-      {currentPost && <p>{currentPost.title}</p>}
+      {currentPost && <p className='text-lg'>{currentPost.title}</p>}
     </div>
   )
 }

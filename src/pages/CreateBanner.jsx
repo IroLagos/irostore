@@ -69,7 +69,7 @@ const handlePost = async () => {
       
 
 
-<button onClick={handlePost} className="bg-blue-500 text-white py-1">{isLoading ? "Creating ..." : "Create Post"}</button>
+<button onClick={handlePost} className="bg-[#5b3e31] text-white py-1">{isLoading ? "Creating ..." : "Create Post"}</button>
 
           
         </div>

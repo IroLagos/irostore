@@ -88,20 +88,20 @@ const PurchaseTable = () => {
         <Sidebar />
         <div className='flex-1 ml-[270px]'>
         <div className='p-9'>
-        <p className='font-bold text-3xl text-blue-600'>Purchases</p>
+        <p className='font-bold text-3xl text-[#5b3e31]'>Purchases</p>
       <div className="mb-4 text-right">
         <input
           type="text"
           placeholder="Search"
           value={search}
           onChange={handleSearch}
-          className="p-2 border border-blue-400 rounded"
+          className="p-2 border border-[#5b3e31] rounded"
         />
         {/* <select value={sortOption} onChange={handleSort} className="ml-2 p-2 border border-gray-300 rounded">
           <option value="latest">Sort by Latest</option>
           <option value="oldest">Sort by Date</option>
         </select> */}
-        <select value={countryFilter} onChange={handleCountryFilter} className="ml-2 mr-2 p-2 border border-blue-400  rounded">
+        <select value={countryFilter} onChange={handleCountryFilter} className="ml-2 mr-2 p-2 border border-[#5b3e31] rounded">
           <option value="">Filter</option>
           {uniqueCountries.map((country, index) => (
             <option key={index} value={country}>{country}</option>
@@ -113,7 +113,7 @@ const PurchaseTable = () => {
 
 
       <table className="w-full bg-white border text-left border-gray-200 rounded-md">
-        <thead className='bg-blue-200 text-blue-700  rounded-md'>
+        <thead className='bg-[#EADDCA] text-[#5b3e31]  rounded-md'>
           <tr >
             {/* <th scope="col" className="py-4 px-11 ">image</th> */}
             <th scope="col" className="py-4 px-11 ">title</th>

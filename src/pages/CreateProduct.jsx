@@ -102,7 +102,7 @@ const CreateProduct = () => {
           <input onChange={(e)=>setColor(e.target.value)} className="border border-black px-2 py-1" placeholder="Color " />
           <input onChange={(e)=>setSize(e.target.value)} className="border border-black px-2 py-1" placeholder="Size " />
           <label className='cursor-pointer'>
-                  <input type="file" className="" style={{display:'none'}} onChange={(e) => setFile(e.target.files[0])} />
+                  <input type="file" className="" onChange={(e) => setFile(e.target.files[0])} />
                   <span className='text-blue-500 underline'>Choose file</span>
                 </label>
          
@@ -116,7 +116,7 @@ const CreateProduct = () => {
           <select value={selectedAvailability} onChange={handleAvailability} className="border border-black px-2 py-1">
             <option value="">Select Availability:</option>
             {available.map(item => (
-              <option key={item.id} value={item.id}>{item.availability}</option>
+              <option key={item.id} value={item.availability}>{item.availability}</option>
             ) )}
           </select>
 

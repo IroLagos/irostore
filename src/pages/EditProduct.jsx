@@ -20,6 +20,7 @@ const EditProduct = () => {
   const { id: productId } = useParams()
   const [product, setProduct] = useState({
     title: "",
+    heading:"",
     price: "",
     discount:"",
     description: "",
@@ -76,6 +77,7 @@ const EditProduct = () => {
 
     const updatedProduct = {
       title: product.title,
+      heading: product.heading,
       price: parseFloat(product.price),
       discount: parseFloat(product.discount),
       description: product.description,
@@ -158,6 +160,7 @@ const EditProduct = () => {
             <p className="text-2xl text-center">Edit Product</p>
             {error && <p className="text-red-500">{error}</p>}
             <input name="title" value={product.title} onChange={handleInputChange} className="border border-black px-2 py-1 w-full md:w-[500px]" placeholder="Title" />
+            <input name="heading" value={product.heading} onChange={handleInputChange} className="border border-black px-2 py-1" placeholder="Heading" />
             <input name="price" value={product.price} onChange={handleInputChange} className="border border-black px-2 py-1" placeholder="Price" />
             <input name="discount" value={product.discount} onChange={handleInputChange} className="border border-black px-2 py-1" placeholder="discounted Price" />
             <input name="description" value={product.description} onChange={handleInputChange} className="border border-black px-2 py-1" placeholder="Description" />
