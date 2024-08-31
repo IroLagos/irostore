@@ -88,9 +88,10 @@ const Navbar = () => {
 
 
             <p onClick={() => navigate('/sales')} className='font-thin text-lg cursor-pointer'>Sales</p>
-            <div className="relative">
-              <p onClick={handleOpen} className='font-thin text-lg cursor-pointer'>Women</p>
-              {open && <div className=" bg-white px-3 py-6 z-50 absolute mt-4 left-1/2 transform -translate-x-1/2 border">
+            {/* <div className="relative"> */}
+              {/* <p onClick={handleOpen} className='font-thin text-lg cursor-pointer'>Women</p> */}
+              <p onClick={() => navigate('/women')} className='font-thin text-lg cursor-pointer'>Women</p>
+              {/* {open && <div className=" bg-white px-3 py-6 z-50 absolute mt-4 left-1/2 transform -translate-x-1/2 border">
                 <div className='flex gap-x-16'>
                   <div>
                     <p onClick={() => navigate('/pricing')} className="min-w-[95px] cursor-pointer font-semibold">Clothing</p>
@@ -117,11 +118,11 @@ const Navbar = () => {
                 </div>
 
               </div>}
-            </div>
+            </div> */}
 
-            <p className='font-thin text-lg cursor-pointer'>Jewelry</p>
-            <p className='font-thin text-lg cursor-pointer'>Men</p>
-            <p className='font-thin text-lg cursor-pointer'>Home Decorations</p>
+            <p onClick={() => navigate('/beauty')} className='font-thin text-lg cursor-pointer'>Beauty</p>
+            <p onClick={() => navigate('/men')} className='font-thin text-lg cursor-pointer'>Men</p>
+            <p onClick={() => navigate('/homedecor')} className='font-thin text-lg cursor-pointer'>Home Decorations</p>
           </div>
 
           <div className='flex gap-x-6'>

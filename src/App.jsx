@@ -21,6 +21,10 @@ import Register from './pages/Register'
 import EditBrand from './pages/EditBrand'
 import CreateBrand from './pages/CreateBrand'
 import BrandTable from './pages/BrandTable'
+import Women from './pages/Women'
+import Men from './pages/Men'
+import HomeDecor from './pages/HomeDecor'
+import Beauty from './pages/Beauty'
 
 const App = () => {
   return (
@@ -32,6 +36,10 @@ const App = () => {
       <Route exact path="/register" element={<Register/>}/>
       <Route exact path="/search" element={<Search/>}/>
       <Route exact path="/sales" element={<Sales/>}/>
+      <Route exact path="/women" element={<Women/>}/>
+      <Route exact path="/men" element={<Men/>}/>
+      <Route exact path="/homedecor" element={<HomeDecor/>}/>
+      <Route exact path="/beauty" element={<Beauty/>}/>
       <Route exact path='/admin' element={<AdminLogin />} />
       <Route exact path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}/>
       <Route exact path="/producttable" element={<ProtectedRoute><ProductTable /></ProtectedRoute>}/>
