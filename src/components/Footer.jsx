@@ -3,7 +3,7 @@ import React from 'react'
 const Footer = () => {
   return (
     <div className='bg-gray-300 py-6'>
-        <div className='flex justify-evenly mt-6'>
+        <div className='flex flex-col md:flex-row justify-evenly mt-6 px-4 md:px-0'>
             <div className=''>
             <p className='font-semibold'>SHOPPING ONLINE</p>
             <p className='mt-2'>Delivery & Returns</p>

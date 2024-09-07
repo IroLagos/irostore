@@ -8,6 +8,7 @@ import { PiShoppingBagOpenLight } from "react-icons/pi";
 import { RxCross1 } from "react-icons/rx";
 import { useAuth } from '../context/AuthContext';
 import { RiEyeLine, RiEyeOffLine } from "react-icons/ri";
+import { RxHamburgerMenu } from "react-icons/rx";
 import axios from 'axios';
 import { URL } from '../url';
 
@@ -74,8 +75,8 @@ const Navbar = () => {
 
   return (
     <div className='relative'>
-      <div className='bg-white mt-9 py-3 fixed top-0 left-0 right-0 z-40 shadow-md'>
-        <div className='flex justify-between items-center px-12'>
+      <div className='bg-white py-3 top-0 left-0 right-0 z-40 shadow-md'>
+        <div className='flex justify-between items-center px-4 md:px-12'>
           <div className='flex gap-x-16 uppercase'>
             <Link to={'/'}><p className='font-semibold text-lg'>Iro Lagos</p></Link>
             {/* <div className="relative">
@@ -87,10 +88,10 @@ const Navbar = () => {
         </div> */}
 
 
-            <p onClick={() => navigate('/sales')} className='font-thin text-lg cursor-pointer'>Sales</p>
+            <p onClick={() => navigate('/sales')} className='hidden md:block font-thin text-lg cursor-pointer'>Sales</p>
             {/* <div className="relative"> */}
               {/* <p onClick={handleOpen} className='font-thin text-lg cursor-pointer'>Women</p> */}
-              <p onClick={() => navigate('/women')} className='font-thin text-lg cursor-pointer'>Women</p>
+              <p onClick={() => navigate('/women')} className='hidden md:block font-thin text-lg cursor-pointer'>Women</p>
               {/* {open && <div className=" bg-white px-3 py-6 z-50 absolute mt-4 left-1/2 transform -translate-x-1/2 border">
                 <div className='flex gap-x-16'>
                   <div>
@@ -120,17 +121,17 @@ const Navbar = () => {
               </div>}
             </div> */}
 
-            <p onClick={() => navigate('/beauty')} className='font-thin text-lg cursor-pointer'>Beauty</p>
-            <p onClick={() => navigate('/men')} className='font-thin text-lg cursor-pointer'>Men</p>
-            <p onClick={() => navigate('/homedecor')} className='font-thin text-lg cursor-pointer'>Home Decorations</p>
+            <p onClick={() => navigate('/beauty')} className='hidden md:block font-thin text-lg cursor-pointer'>Beauty</p>
+            <p onClick={() => navigate('/men')} className='hidden md:block font-thin text-lg cursor-pointer'>Men</p>
+            <p onClick={() => navigate('/homedecor')} className='hidden md:block font-thin text-lg cursor-pointer'>Home Decorations</p>
           </div>
 
-          <div className='flex gap-x-6'>
-          {user && <p className='font-medium mt-1'>Hi {user.fname}</p>}
-            <div>
-              <p className='font-semibold text-2xl cursor-pointer mt-1' onClick={toggleSignIn}><GoPerson /></p>
+    <div className='flex gap-x-6'>
+                {user && <p className='hidden md:block font-medium mt-1'>Hi {user.fname}</p>}
+            <div className='hiddenmd:block '>
+              <p className='hidden md:block font-semibold text-2xl cursor-pointer mt-1' onClick={toggleSignIn}><GoPerson /></p>
               {showSignIn && (
-                <div className='bg-white border absolute w-[450px] mt-3 right-0 px-5 py-3 z-50'>
+                <div className='hidden md:block bg-white border absolute w-[450px] mt-3 right-0 px-5 py-3 z-50'>
                   <p className='mt-4 flex justify-end' onClick={toggleSignIn}><RxCross1 size={25} /></p>
 
                   <p className='font-medium mt-2'>SIGN IN</p>
@@ -140,7 +141,7 @@ const Navbar = () => {
                   <p className='mt-6'>Password</p>
                   <div class="relative w-full">
     <div class="absolute inset-y-0 right-0 flex items-center px-2">
-      {/* <input class="hidden js-password-toggle" id="toggle" type="checkbox" /> */}
+  
       <p onClick={togglePasswordVisibility} className=" px-2 py-1 text-xl font-mono cursor-pointer text-gray-400" for="toggle">{isPasswordVisible ? (<RiEyeLine />):(<RiEyeOffLine />)}</p>
     </div>
     <input onChange={(e) => setPassword(e.target.value)} className="border-b border-black focus:outline-none w-full py-2 " type={isPasswordVisible ? "text" : "password"} autocomplete="off"
@@ -156,17 +157,19 @@ const Navbar = () => {
                   <div className='mt-9'>
                     <button onClick={() => navigate('/register')} className='border-2 border-black w-full px-9 py-2 rounded-full'>SIGN UP </button>
                   </div>
-
+ 
                   <div className='mb-16'></div>
                 </div>
               )}
             </div>
 
 
-            <p onClick={() => navigate('/search')} className='font-semibold text-2xl cursor-pointer mt-1'><GoSearch /></p>
+            <p onClick={() => navigate('/search')} className='hidden md:block font-semibold text-2xl cursor-pointer mt-1'><GoSearch /></p>
          
-            <p className='font-semibold text-2xl cursor-pointer mt-1'><PiShoppingBagOpenLight /></p>
+            <p className='hidden md:block font-semibold text-2xl cursor-pointer mt-1'><PiShoppingBagOpenLight /></p>
           </div>
+
+          <div className='md:hidden'><RxHamburgerMenu size={25}/></div>
 
         </div>
 
