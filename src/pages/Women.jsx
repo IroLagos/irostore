@@ -56,6 +56,12 @@ const Women = () => {
 
 
     const filteredWomen =  products?.filter((w) => w.Category.name == "Women")
+    .sort((a, b) => {
+      // Sort products with images first
+      if (a.imageUrl && !b.imageUrl) return -1;
+      if (!a.imageUrl && b.imageUrl) return 1;
+      return 0;
+    });
 
   return (
     <div className='py-2 px-3 md:px-9'>

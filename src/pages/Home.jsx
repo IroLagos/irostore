@@ -93,20 +93,49 @@ useEffect(() => {
     <Banner />
       <Navbar/>
 
-      <div style={divStyle}></div>
-    <div className=''>
-        <p className='text-[50px] text-center absolute z-50 left-1/2 transform -translate-x-1/2 top-[200px] text-white uppercase'>The New Season is Here</p>
-        <button onClick={() => navigate('/search')} className='border-2 border-white text-[50px] text-center absolute z-50 left-1/2 transform -translate-x-1/2 top-[300px] text-white px-6 rounded-full uppercase'>Shop Now</button>
-        {/* <p className='max-w-[700px] text-center mx-auto pt-4'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p> */}
+
+    {/* <div className='relative'>
+      <img src={hero} className='w-full h-[300px] md:h-[500px] object-cover' />
+      <div className="absolute inset-0 flex items-center justify-end px-48">
+        <div>
+        <p className='text-[50px] text-white uppercase'>It's Arrived</p>
+        <p className='text-white text-xl max-w-[500px]'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <button onClick={() => navigate('/search')} className='border-2 border-white text-[35px] text-white px-6 rounded-full uppercase mt-4'>Shop Now</button>
         </div>
+        </div>
+        </div> */}
+
+<div className='relative'>
+      <img 
+        src={hero} 
+        className='w-full h-[300px] md:h-[400px] lg:h-[500px] object-cover' 
+        alt="Hero image"
+      />
+      <div className="absolute inset-0 flex items-center justify-center md:justify-end px-4 md:px-8 lg:px-16 xl:px-48">
+        <div className="text-center md:text-left max-w-[90%] md:max-w-[60%] lg:max-w-[50%]">
+          <h1 className='text-3xl md:text-4xl lg:text-5xl text-white uppercase font-semibold mb-2 md:mb-4'>
+            It's Arrived
+          </h1>
+          <p className='text-white text-sm md:text-base lg:text-lg mb-4 md:mb-6 md:max-w-[500px]'>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </p>
+          <button 
+            onClick={() => navigate('/search')} 
+            className='border-2 border-white text-white text-lg md:text-xl lg:text-2xl px-4 py-2 md:px-6 md:py-3 rounded-full uppercase hover:bg-white hover:text-black transition duration-300'
+          >
+            Shop Now
+          </button>
+        </div>
+      </div>
+    </div>
 
 <div className='px-6'>
 
 <div className='flex flex-col md:flex-row justify-center mt-24'>
-  <CategoryCard image={dresses} title={'Dresses'}/>
-  <CategoryCard image={beauty} title={'Beauty'}/>
+  <Link to={'/dressescategory'}><CategoryCard image={dresses} title={'Dresses'}/></Link>
+  <Link to={'/beautycategory'}><CategoryCard image={beauty} title={'Beauty'}/></Link>
   <CategoryCard image={jewelry} title={'Jewelries'}/>
-  <CategoryCard image={homedecor} title={'Home Decoration'}/>
+  <Link to={'/homedecorcategory'}><CategoryCard image={homedecor} title={'Home Decoration'}/></Link>
   {/* <CategoryCard image={jewelry} title={'Dresses'}/> */}
 </div>
 
