@@ -28,9 +28,9 @@ const EditProduct = () => {
     size: "",
     availability:"",
     brand:"",
-    imageUrl: null,
+    imageUrls: [],
   })
-  const [file, setFile] = useState(null)
+  const [files, setFiles] = useState([])
   const [selectedCategoryId, setSelectedCategoryId] = useState("")
   const [selectedBrand, setSelectedBrand] = useState("")
   const [selectedAvailability, setSelectedAvailability]=useState([])
@@ -72,8 +72,12 @@ const EditProduct = () => {
     setProduct(prev => ({ ...prev, [name]: value }));
   };
 
+  // const handleFileChange = (e) => {
+  //   setFile(e.target.files[0])
+  // }
+
   const handleFileChange = (e) => {
-    setFile(e.target.files[0])
+    setFiles([...e.target.files])
   }
 
   const handleAvailability = (e) => {       
@@ -115,15 +119,17 @@ const EditProduct = () => {
     }
   }
 
-  const updateImage = async () => {
+  const updateImages = async () => {
     setIsLoading(true)
     setError("")
 
     const formData = new FormData()
-    if (file) {
-      formData.append('imageUrl', file)
+    if (files.length > 0) {
+      files.forEach((file, index) => {
+        formData.append('imageUrl', file)
+      })
     } else {
-      setError("Please select an image to upload")
+      setError("Please select an images to upload")
       setIsLoading(false)
       return
     }
@@ -135,8 +141,8 @@ const EditProduct = () => {
         }
       });
       if (res.data) {
-        setProduct(prev => ({ ...prev, imageUrl: res.data.imageUrl }))
-        setFile(null)
+        setProduct(prev => ({ ...prev, imageUrls: res.data.imageUrls }))
+        setFiles([])
       }
     } catch (error) {
       console.error("failed to update image:", error)
@@ -153,7 +159,7 @@ const EditProduct = () => {
     try {
       const res = await axios.delete(`${URL}/api/products/${productId}/image`);
       if (res.data) {
-        setProduct(prev => ({ ...prev, imageUrl: null }))
+        setProduct(prev => ({ ...prev, imageUrls: null }))
       }
     } catch (error) {
       console.error("failed to remove image:", error)
@@ -202,18 +208,38 @@ const EditProduct = () => {
         </form>
 
         <div className="mt-8">
-          <p className="text-xl mb-4">Update Image</p>
+          {/* <p className="text-xl mb-4">Update Image</p>
           {product.imageUrl && (
             <div>
               <p>Current image:</p>
               <img src={product.imageUrl} alt="Product" className="w-32 h-32 object-cover mb-2" />
-              {/* <button onClick={removeImage} className="bg-red-500 text-white px-3 py-1 rounded-md mb-4">Remove Image</button> */}
+
             </div>
           )}
           <input type="file" onChange={handleFileChange} className="mb-2" />
           <button onClick={updateImage} disabled={isLoading} className="bg-green-500 text-white px-3 py-1 rounded-md">
             {isLoading ? "Updating..." : "Update Image"}
+          </button> */}
+
+<div className="flex-1">
+          <h2 className="text-xl font-semibold mb-4">Product Images</h2>
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            {product.imageUrls?.map((url, index) => (
+              <div key={index} className="relative">
+                <img src={url} alt={`Product ${index + 1}`} className="w-full h-32 object-cover rounded" />
+                <button onClick={() => removeImage(url)} className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full">
+                  X
+                </button>
+              </div>
+            ))}
+          </div>
+          <input type="file" onChange={handleFileChange} multiple className="mb-2" />
+          <button onClick={updateImages} disabled={isLoading} className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300">
+            {isLoading ? "Updating..." : "Update Images"}
           </button>
+        </div>
+
+
         </div>
       </div>
     </div>

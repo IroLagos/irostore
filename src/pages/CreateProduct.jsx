@@ -21,7 +21,7 @@ const CreateProduct = () => {
 
     const [title,setTitle]=useState("")
     const [heading,setHeading]=useState("")
-    const [file, setFile] = useState(null)
+    const [files, setFiles] = useState([])
     const [imageUrl,setImageUrl]=useState(null)
     const [price,setPrice]=useState("")
     const [description,setDescription]=useState("")
@@ -69,6 +69,10 @@ const CreateProduct = () => {
       setSelectedAvailability(e.target.value);
   };
 
+  const handleFileChange = (e) => {
+    setFiles([...e.target.files]);
+  };
+
     const handleProduct = async (e) => {
     e.preventDefault();
 
@@ -83,9 +87,10 @@ const CreateProduct = () => {
     formData.append('categoryId', selectedCategoryId);
     formData.append('brand', selectedBrand);
     formData.append('availability', selectedAvailability);
-    if (file) {
+
+    files.forEach((file, index) => {
       formData.append('imageUrl', file);
-    }
+    });
 
 
     const res = await axios.post(`${URL}/api/products/create`, formData, {
@@ -100,12 +105,7 @@ const CreateProduct = () => {
   
   }
 
-
-
-      
-   
-
-    
+ 
   return (
     <div className="w-full">
     
@@ -118,10 +118,22 @@ const CreateProduct = () => {
           <input onChange={(e)=>setDescription(e.target.value)} className="border border-black px-2 py-1" placeholder="Description" />
           <input onChange={(e)=>setColor(e.target.value)} className="border border-black px-2 py-1" placeholder="Color " />
           <input onChange={(e)=>setSize(e.target.value)} className="border border-black px-2 py-1" placeholder="Size " />
-          <label className='cursor-pointer'>
-                  <input type="file" className="" onChange={(e) => setFile(e.target.files[0])} />
-                  <span className='text-blue-500 underline'>Choose file</span>
-                </label>
+          {/* <label className='cursor-pointer'>
+                  <input type="file" className="" onChange={handleFileChange} multiple />
+                  <span className='text-blue-500 underline'>Choose files</span>
+                </label> */}
+                 <div className="flex items-center space-x-2">
+            <label className='cursor-pointer bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300'>
+              <input 
+                type="file" 
+                className="hidden" 
+                onChange={handleFileChange} 
+                multiple 
+              />
+              Choose Files
+            </label>
+            <span>{files.length} file(s) selected</span>
+          </div>
          
           <select value={selectedCategoryId} onChange={handleCategoryId} className="border border-black px-2 py-1">
             <option value="">Select Category:</option>

@@ -63,6 +63,11 @@ const Sidebar = () => {
         <GoPackage />
         <p className='py-1 text-center'>Products</p>
         </div></Link>
+        
+        <Link to={'/pos'}><div className='flex gap-x-3 items-center hover:bg-[#EADDCA]  px-2 mt-6 rounded'>
+        <GoPackage />
+        <p className='py-1 text-center'>Point of Sale</p>
+        </div></Link>
 
         <Link to={'/createbanner'}><div className='flex gap-x-3 items-center hover:bg-[#EADDCA]  px-2 mt-6 rounded'>
         <PiNotepad />

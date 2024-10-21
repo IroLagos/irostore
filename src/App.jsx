@@ -28,6 +28,7 @@ import Beauty from './pages/Beauty'
 import BeautyCategory from './pages/BeautyCategory'
 import HomeDecorCategory from './pages/HomeDecorCategory'
 import DressesCategory from './pages/DressesCategory'
+import POS from './pages/POS'
 
 const App = () => {
   return (
@@ -59,6 +60,7 @@ const App = () => {
       <Route exact path="/editbrand/:id" element={<ProtectedRoute><EditBrand /></ProtectedRoute>}/>
       <Route exact path="/createbrand" element={<ProtectedRoute><CreateBrand /></ProtectedRoute>}/>
       <Route exact path="/brandtable" element={<ProtectedRoute><BrandTable /></ProtectedRoute>}/>
+      <Route exact path="/pos" element={<ProtectedRoute><POS /></ProtectedRoute>}/>
       {/* <Route exact path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}/> */}
     </Routes>
   )

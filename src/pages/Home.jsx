@@ -14,11 +14,67 @@ import dresses from '../assets/dresses.jpg'
 import homedecor from '../assets/homedecor.jpg'
 import jewelry from '../assets/jewelry.jpg'
 import beauty from '../assets/beauty.jpg'
-// import jewelry from '../assets/jewelry.jpg'
-// import jewelry from '../assets/jewelry.jpg'
+import { IoIosArrowDown } from "react-icons/io";
+import { IoArrowBackSharp, IoArrowForwardOutline } from "react-icons/io5";
+import { GoDotFill, GoDot } from "react-icons/go";
+import { FaMinus } from "react-icons/fa";
+import { TiMinusOutline } from "react-icons/ti";
+
+const slides = [
+  {
+    title: "EDTAA",
+    subtitle: "Transforming the world's business",
+    text: "Driving global growth through ours' only advanced technology and unparalleled expertise.",
+    image: homedecor
+  },
+  {
+    title: "Supercharging with SAP",
+    subtitle: "Elevate Your Efficiency and Innovate Faster with SAP Solutions",
+    text:"Unlock the full potential of your business with SAP. Seamlessly streamline operations, boost productivity, and stay ahead of the competition. Experience the power of SAP today!",
+    image: jewelry
+  },
+  {
+    title: "The Digital Powerhouse",
+    subtitle: "Revolutionize Your Business Today",
+    text:"Unlock unparalleled growth and efficiency with our leading-edge digital transformation solutions. Harness the power of AI, cloud, and automation to drive your business forward forward. Experience the future, now.",
+    image: beauty
+  }
+];
+
 
 
 const Home = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate()
+  const [products, setProducts] = useState([])
+
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  const [currentIndex2, setCurrentIndex2] = useState(0)
+
+
+  const nextSlides = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  };
+
+  const prevSlides = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  }
+
+  // Auto-advance slides
+  useEffect(() => {
+    const timer = setInterval(() => {
+      nextSlides();
+    }, 3000); // Change slide every 3 seconds
+
+    return () => clearInterval(timer);
+  }, [currentSlide]);
+
   const divStyle = {
     // width: '100vw',
     height: '80vh',
@@ -30,24 +86,19 @@ const Home = () => {
     filter: 'brightness(0.5)'
   }
 
-  const navigate = useNavigate()
-  const [products, setProduct] = useState([])
 
-  const [currentIndex, setCurrentIndex] = useState(0)
 
-  const [currentIndex2, setCurrentIndex2] = useState(0)
 
-  console.log("products things", products)
 
-  const filteredWomen = products?.filter((w) => w.Category.name == "Women")
-    .sort((a, b) => {
-      // Sort products with images first
-      if (a.imageUrl && !b.imageUrl) return -1;
-      if (!a.imageUrl && b.imageUrl) return 1;
-      return 0;
-    });
+  // const filteredWomen = products?.filter((w) => w.Category.name == "Women")
+  //   .sort((a, b) => {
+  //     // Sort products with images first
+  //     if (a.imageUrl && !b.imageUrl) return -1;
+  //     if (!a.imageUrl && b.imageUrl) return 1;
+  //     return 0;
+  //   });
 
-  console.log("women things", filteredWomen)
+  // console.log("women things", filteredWomen)
 
   const nextSlide = () => {
     setCurrentIndex((prevIndex) =>
@@ -75,59 +126,80 @@ const Home = () => {
   };
 
   const fetchProducts = async () => {
-    try {
-      const res = await axios.get(`${URL}/api/products`)
-      console.log(res.data);
-      setProduct(res.data);
-    } catch (error) {
-      console.log(error)
-    }
+
+    const res = await axios.get(`${URL}/api/products`)
+    console.log("see products",res.data)
+    setProducts(res.data)
   }
 
   useEffect(() => {
-    fetchProducts();
-  }, [])
+    fetchProducts()
+  },[])
+
+  console.log("products things", products)
+
 
   return (
     <div className='overflow-x-hidden'>
       <Banner />
       <Navbar />
+        <div className="relative h-[50vh] md:h-[70vh]">
 
 
-      {/* <div className='relative'>
-      <img src={hero} className='w-full h-[300px] md:h-[500px] object-cover' />
-      <div className="absolute inset-0 flex items-center justify-end px-48">
-        <div>
-        <p className='text-[50px] text-white uppercase'>It's Arrived</p>
-        <p className='text-white text-xl max-w-[500px]'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <button onClick={() => navigate('/search')} className='border-2 border-white text-[35px] text-white px-6 rounded-full uppercase mt-4'>Shop Now</button>
-        </div>
-        </div>
-        </div> */}
-
-      <div className='relative'>
-        <img
-          src={hero}
-          className='w-full h-[300px] md:h-[400px] lg:h-[500px] object-cover'
-          alt="Hero image"
-        />
-        <div className="absolute inset-0 flex items-center justify-center md:justify-end px-4 md:px-8 lg:px-16 xl:px-48">
-          <div className="text-center md:text-left max-w-[90%] md:max-w-[60%] lg:max-w-[50%]">
-            <h1 className='text-3xl md:text-4xl lg:text-5xl text-white uppercase font-semibold mb-2 md:mb-4'>
-              It's Arrived
-            </h1>
-            <p className='text-white text-sm md:text-base lg:text-lg mb-4 md:mb-6 md:max-w-[500px]'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </p>
-            <button
-              onClick={() => navigate('/search')}
-              className='border-2 border-white text-white text-lg md:text-xl lg:text-2xl px-4 py-2 md:px-6 md:py-3 rounded-full uppercase hover:bg-white hover:text-black transition duration-300'
+          {slides?.map((slide, index) => (
+            <div
+              key={index}
+              className={`absolute top-0 left-0 w-full h-full transition-opacity duration-500 ${
+                index === currentSlide ? 'opacity-100' : 'opacity-0'
+              }`}
+              style={{
+                backgroundImage: `url(${slide.image})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
             >
-              Shop Now
-            </button>
+                
+                   <div className="absolute flex justify-end right-0 inset-0 bg-black bg-opacity-50 px-4 md:pr-[50px] pt-16 md:pt-[170px] text-white">
+                    <div>
+  <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold mb-2 sm:mb-3 md:mb-4 max-w-[800px]">{slide.subtitle}</p>
+  <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl mb-4 max-w-[800px]">{slide.text}</h2>
+</div>
+
+</div>
+            </div>
+            
+          ))}
+          {/* <button
+            onClick={prevSlides}
+            className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white bg-opacity-50 p-2 rounded-full z-50"
+          >
+            <FaChevronLeft className="text-2xl" />
+          </button>
+          <button
+            onClick={nextSlides}
+            className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white bg-opacity-50 p-2 rounded-full z-50"
+          >
+            <FaChevronRight className="text-2xl" />
+          </button> */}
+
+          <div className='absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-x-6 justify-center z-50'>
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className="focus:outline-none"
+              >
+                {index === currentSlide ? (
+                  <FaMinus size={30} color='white' />
+                ) : (
+                  <TiMinusOutline size={30} color='white' className="opacity-50 hover:opacity-100 transition-opacity" />
+                )}
+              </button>
+            ))}
           </div>
         </div>
-      </div>
+
+
 
       <div className='px-6'>
 
@@ -157,14 +229,14 @@ const Home = () => {
 
           <div className='flex flex-col md:flex-row justify-center gap-x-48 mt-4'>
 
-            {filteredWomen?.slice(currentIndex, currentIndex + 3)?.map(d => (
+       {products?.slice(currentIndex, currentIndex + 3)?.map(d => (
 
               <Link to={`/productdetails/${d.id}`}>
                 <div key={d.id}>
-                  <BestSellerCard title={d.title} heading={d.heading} imageUrl={d?.imageUrl} price={d.price} discount={d?.discount} description={d.description} color={d.color} />
+                  <BestSellerCard title={d.title} heading={d.heading} imageUrls={d?.imageUrls} price={d.price} discount={d?.discount} description={d.description} color={d.color} />
                 </div>
               </Link>
-            ))}
+            ))} 
           </div>
 
           <button
@@ -190,14 +262,14 @@ const Home = () => {
 
           <div className='flex flex-col md:flex-row justify-center gap-x-48 mt-4'>
 
-            {products?.slice(currentIndex2, currentIndex2 + 3)?.map(d => (
+          {products?.slice(currentIndex2, currentIndex2 + 3)?.map(d => (
 
               <Link to={`/productdetails/${d.id}`}>
                 <div key={d.id}>
                   <BestSellerCard title={d.title} heading={d.heading} imageUrl={d?.imageUrl} price={d.price} discount={d?.discount} description={d.description} color={d.color} />
                 </div>
               </Link>
-            ))}
+            ))} 
           </div>
 
           <button

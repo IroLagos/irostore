@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext } from 'react'
 import gallery from '../assets/perfume.jpg'
 import Navbar from '../components/Navbar'
 import { FaStar } from "react-icons/fa";
-import { FiMinus,FiPlus } from "react-icons/fi";
+import { FiMinus, FiPlus } from "react-icons/fi";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import {Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { URL } from '../url';
 import axios from 'axios';
 import { CartContext } from '../context/CartContext';
@@ -19,7 +19,6 @@ import { RxCross1 } from "react-icons/rx";
 import { PaystackButton } from 'react-paystack';
 import notyet from '../assets/notyet.png'
 
-
 const ProductDetails = () => {
 const {user, logout} = useAuth();
 const productId = useParams().id
@@ -31,7 +30,8 @@ const [quantity, setQuantity] = useState(1)
 const [title, setTitle] = useState('')
 const [availability, setAvailability] = useState('')
 const [heading, setHeading] = useState('')
-const [imageUrl, setImageUrl] = useState('')
+const [images, setImages] = useState([])
+const [currentImageIndex, setCurrentImageIndex] = useState(0)
 const [description, setDescription] = useState('')
 const [price, setPrice] = useState('')
 const [discount, setDiscount] = useState('')
@@ -98,11 +98,6 @@ const toastStyles = {
   success: {
 
     duration: 10000,
-    // style: {
-    //   background: '#4CAF50',
-    //   color: 'white',
-    //   fontWeight: 'bold',
-    // },
     iconTheme: {
       primary: 'white',
       secondary: '#4CAF50',
@@ -156,11 +151,11 @@ const fetchProducts = async() => {
     setIsLoading(true)
     try {
         const res = await axios.get(`${URL}/api/products/${productId}`)
-        console.log(res.data)
+        console.log("see my products", res.data)
         setTitle(res.data.title)
         setHeading(res.data.heading)
         setDescription(res.data.description)
-        setImageUrl(res.data.imageUrl)
+        setImages(res.data.imageUrls || [res.data.imageUrl])
         setPrice(res.data.price)
         setDiscount(res.data.discount)
         setSize(res.data.size)
@@ -243,18 +238,14 @@ const handleReview = async () => {
         setMessage('Review Submitted successfully!');
         setRating(0);
         setComment('');
-        
-
 
     } catch (error) {
         setMessage(error.res?.data?.message || 'You have to buy this product to review!');
-        toast.error(error.res?.data?.message || 'You have to buy this product to review!', toastStyles.error);
-     
+        toast.error(error.res?.data?.message || 'You have to buy this product to review!', toastStyles.error); 
     }
 }
 
 const publicKey = "pk_test_6fa7dbd015006b4b712c4d8bfedcd53cb4f93320"
-
 
 const paymentProps = {
     amount: product.price * 100,
@@ -282,136 +273,159 @@ const paymentProps = {
       );
       handleBuyNow();
       navigate('/')
-    //   navigate(`/bookingconfirmation/${bookingId}`)
+
     },
   }
 
+    return (
+        <>
+            <Banner />
+            <Navbar />
+
+            <div className="px-4 md:px-16 py-6">
+                <Toaster
+                    position="top-right"
+                    reverseOrder={false}
+                    gutter={8}
+                    toastOptions={{
+                        duration: 9000,
+                        style: {
+                            borderRadius: '8px',
+                            boxShadow: '0 3px 10px rgba(0,0,0,0.1), 0 3px 3px rgba(0,0,0,0.05)'
+                        }
+                    }}
+                />
+
+                <p onClick={() => { navigate(-1) }} className='flex items-center gap-x-2 text-gray-500 mb-6 cursor-pointer'>
+                    Home <MdOutlineKeyboardArrowRight /> Product details
+                </p>
+
+                {isLoading ? (
+                    <p className='flex justify-center items-center h-screen'>Loading ...</p>
+                ) : (
+                    <div className='flex md:flex-row justify-center gap-6 md:gap-9'>
 
 
-  return (
-    <>
-    <Banner />
-    <Navbar/>
+                        <div className='flex flex-col justify-center mb-96 gap-y-6'>
+                            {images?.map((img, index) => (
+                                <img 
+                                    key={index}
+                                    src={img}
+                                    alt={`${title} thumbnail ${index + 1}`}
+                                    className='object-cover w-[100px] h-[100px] rounded-xl'
+                                    // className={`w-16 h-16 object-cover cursor-pointer ${index === currentImageIndex ? 'border-2 border-blue-500' : ''}`}
+                                    onClick={() => setCurrentImageIndex(index)}
+                                />
+                            ))}
+                        </div>
+                 
+                        <img src={images[currentImageIndex] || notyet} className='object-contain w-full md:w-[1050px] h-[300px] md:h-[600px] rounded' alt={title} />
+                
+                      
+{/* 
+                        </div> */}
 
-    <div>
-    <Toaster 
-    position="top-right"
-    reverseOrder={false}
-    gutter={8}
-    toastOptions={{
-        duration:9000,
-        style:{
-            borderRadius:'8px',
-            boxShadow:'0 3px 10px rgba(0,0,0,0.1), 0 3px 3px rgba(0,0,0,0.05)'
-        }
-    }} 
-     />
 
-        <p onClick={() => {navigate(-1)}} className='flex items-center gap-x-2 text-gray-500 px-16 mt-9 cursor-pointer'>Home <MdOutlineKeyboardArrowRight /> Product details</p>
+                        <div className='bg-gray-100 w-full md:w-[500px] p-4'>
+                            <p className='text-2xl md:text-3xl font-normal'>{title}</p>
+                            <p className='text-lg md:text-xl font-normal mt-3'>{heading}</p>
 
-        {isLoading ? (<p className='flex justify-center items-center h-screen'>Loading ...</p>) : (<div className='flex justify-center gap-x-9 mt-12'>
-            <img src={imageUrl ? imageUrl : notyet} className='object-contain w-[950px] h-[600px] rounded' />
+                            {discount ? (
+                                <>
+                                    <p className='line-through font-bold text-red-500 text-xl mt-3'>₦{price}</p>
+                                    <p className='font-bold text-xl mt-1 text-green-600'>₦{discount}</p>
+                                </>
+                            ) : (
+                                <p className='font-bold text-xl mt-3'>₦{price}</p>
+                            )}
 
-            <div className='bg-gray-100 w-[500px] px-2 py-2'>
-                {/* <p className='text-3xl font-semibold'>{title}</p> */}
-                <p className='text-3xl font-normal max-w-[450px]'>{title}</p>
+                            <div className='flex items-center gap-x-2 mt-2'>
+                                {[...Array(5)].map((_, i) => (
+                                    <FaStar key={i} color='#5b3e31' />
+                                ))}
+                                <span>4.6</span>
+                            </div>
 
-                <p className='text-xl font-normal mt-3 max-w-[450px]'>{heading}</p>
+                            <p className='font-semibold mt-6'>Choose Quantity</p>
+                            <div className='flex gap-x-4 mt-2'>
+                                <button onClick={handleDecrease} className='border-2 border-black rounded-md px-4 py-2'><FiMinus /></button>
+                                <button className='border text-gray-700 font-semibold rounded-md px-3 py-2'>{quantity}</button>
+                                <button onClick={handleIncrease} className='border-2 border-black font-semibold rounded-md px-4 py-2'><FiPlus /></button>
+                            </div>
 
-               {discount ? <p className='line-through font-bold text-red-500 text-xl mt-3'>₦{price}</p> : <p className='font-bold text-xl mt-3'>₦{price}</p> }
+                            <p className='font-thin mt-6 flex items-center gap-x-2'>
+                                Availability:
+                                {availability === 'In Stock' ? (
+                                    <span className='flex items-center gap-x-1 text-green-600 font-normal'>
+                                        {availability}<IoMdCheckmark color='green' />
+                                    </span>
+                                ) : (
+                                    <span className='flex items-center gap-x-1 text-red-600 font-normal'>
+                                        {availability}<RxCross1 color='red' />
+                                    </span>
+                                )}
+                            </p>
 
-                {discount && <p className='font-bold text-xl mt-3 text-green-600'>₦{discount}</p>}
+                            <p className='mt-4 text-lg font-semibold'>Size: <span className='font-normal text-xl uppercase'>{size}</span></p>
+                            <p className='mt-4 text-lg font-semibold'>Color: <span className='font-normal text-xl uppercase'>{color}</span></p>
 
-                <div className='flex justify-start items-center gap-x-2 mt-2'>
-            <FaStar color='#5b3e31' />  <FaStar color='#5b3e31' />  <FaStar color='#5b3e31' />  <FaStar color='#5b3e31' /> <FaStar color='#5b3e31' /> 4.6
-            </div>
+                            <div className='flex flex-col sm:flex-row gap-4 mt-6'>
+                                {user ? (
+                                    <PaystackButton {...paymentProps} disabled={isLoading} className="w-full sm:w-auto border-2 border-black font-medium rounded-full px-6 py-2 text-center">
+                                        {isLoading ? "Loading..." : "Buy Now"}
+                                    </PaystackButton>
+                                ) : (
+                                    <button onClick={() => navigate('/login')} className="w-full sm:w-auto border-2 border-black font-medium rounded-full px-6 py-2 text-center">
+                                        {isLoading ? "Loading..." : "Buy Now"}
+                                    </button>
+                                )}
+                                <button className='w-full sm:w-auto bg-[#5b3e31] text-white font-semibold rounded-full px-6 py-2 text-center' onClick={() => handleAddToCart(product, quantity)}>
+                                    Add to Cart
+                                </button>
+                            </div>
 
-            <p className='font-semibold mt-6'>Choose Quantity</p>
+                            <div className='mt-6'>
+                                <div className='text-lg font-semibold'>Make a review</div>
+                                <div className='flex gap-x-2 mt-2'>
+                                    {[handleFirst, handleSecond, handleThird, handleFourth, handleFifth].map((handler, index) => (
+                                        <div key={index} onClick={handler}>
+                                            {[first, second, third, fourth, fifth][index] ? (
+                                                <FaStar color='orange' size={20} />
+                                            ) : (
+                                                <GoStar size={20} />
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                                <textarea
+                                    onChange={(e) => setComment(e.target.value)}
+                                    className='border px-2 py-2 h-[100px] rounded-md w-full text-gray-600 mt-2'
+                                    placeholder='Write a comment'
+                                />
+                                <div className='mt-2'>
+                                    <button onClick={handleReview} className='bg-black text-white rounded-md px-4 py-2 w-full sm:w-auto'>
+                                        Send Review
+                                    </button>
+                                </div>
+                                {message && <p className='text-green-600 mt-2'>{message}</p>}
+                            </div>
+                        </div>
+                    </div>
+                )}
 
-            <div className='flex gap-x-4 mt-2'>
-                    <button onClick={handleDecrease} className='border-2 border-black rounded-md px-6 py-2'><FiMinus /></button>
-                    <button className='border text-gray-700 font-semibold rounded-md px-3 py-2'>{quantity}</button>
-                    <button onClick={handleIncrease} className='border-2 border-black font-semibold rounded-md px-6 py-2'><FiPlus /></button>
+                <div className='mt-12 md:mt-24'>
+                    <p className='text-xl font-thin mb-4'>SIMILAR COLLECTIONS</p>
+                    <div className='flex flex-col md:flex-row justify-center gap-6 md:gap-12'>
+                        <Link to={'/productdetails'}><BestSellerCard /></Link>
+                        <BestSellerCard />
+                        <BestSellerCard />
+                    </div>
                 </div>
 
-           <p className='font-thin mt-6 flex items-center gap-x-2'>Availability:{availability === 'In Stock' ?  (<p className='flex gap-x-2 items-center'><span className='text-green-600 font-normal'>{availability}</span><IoMdCheckmark color='green' /></p>) : (<p className='flex gap-x-2 items-center'><span className='text-red-600 font-normal'>{availability}</span><RxCross1 color='red' /></p> )}</p>
-
-           <p className='mt-4 text-lg font-semibold'>Size: <span className='font-normal text-xl uppercase'>{size}</span></p>
-
-           <p className='mt-4 text-lg font-semibold'>Color: <span className='font-normal text-xl uppercase'>{color}</span></p>
-                {/* <p className='mt-6 max-w-[450px]'>{description}.</p>
-                <p className='mt-4 text-2xl'>Price: {discount? <span className='font-bold'>{discount}</span> : <span className='font-bold'>{price}</span>}</p>  */}
-              
-                {/* <div className='flex items-center gap-x-4'> */}
-                    {/* <p className='mt-4 text-2xl'>Colors: </p> */}
-                {/* <div className='flex border px-4 py-1 gap-x-2 rounded-md mt-5'> */}
-                     {/* <div className='rounded-full text-center h-9 w-9' style={{backgroundColor: `${color}`}}> */}
-
-                        
-                     {/* </div> */}
-                                  
-
-                     {/* </div> */}
-
-     
-       
-               
-                {/* </div> */}
-
-
-
-                <div className='flex gap-x-4 mt-3'>
-                {user ? <PaystackButton {...paymentProps} disabled={isLoading} className="border-2 border-black font-medium rounded-full px-12 py-2">{isLoading ? "Loading. . ." : "Buy Now"}</PaystackButton> : (<button onClick={()=> navigate('/login')} className="border-2 border-black font-medium rounded-full px-12 py-2">{isLoading ? "Loading..." : "Buy Now"}</button> )}
-                    {/* <button className='border-2 border-black font-medium rounded-full px-12 py-2' onClick={handleBuyNow}>{isLoading2? "Loading . . ." : "Buy Now"}</button> */}
-                    <button className='bg-[#5b3e31] text-white font-semibold rounded-full px-12 py-2' onClick={() => handleAddToCart(product, quantity)}>Add to Cart</button>
-                </div>
-
-                <div className='mt-4'>
-        <div className='text-lg font-semibold'>Make a review</div>
-        <div className='flex gap-x-4 mt-2'>
-
-        <div onClick={handleFirst} onChange={(e) => setRating(e.target.value)}>{first? (<FaStar color='orange' size={20}/>) : (<GoStar size={20}/>)}</div>
-        <div onClick={handleSecond} onChange={(e) => setRating(e.target.value)}>{second? (<FaStar color='orange' size={20} />) : (<GoStar size={20} />)}</div>
-        <div onClick={handleThird} onChange={(e) => setRating(e.target.value)}>{third? (<FaStar color='orange' size={20} />) : (<GoStar size={20} />)}</div>
-        <div onClick={handleFourth} onChange={(e) => setRating(e.target.value)}>{fourth? (<FaStar color='orange' size={20} />) : (<GoStar size={20} />)}</div>
-        <div onClick={handleFifth} onChange={(e) => setRating(e.target.value)}>{fifth? (<FaStar color='orange' size={20}/>) : (<GoStar size={20}/>)}</div>
-
-        </div>
-        <textarea  onChange={(e) => setComment(e.target.value)}  className='border px-2 py-2 h-[100px] rounded-md w-[400px] text-gray-600 mt-2' placeholder='Write a comment'/>
-     
-        <div className='mt-2'><button onClick={handleReview} className='bg-black text-white rounded-md px-4 py-1'>Send Review</button></div>
-        {message && <p className='text-green-600'>{message}</p>}
-
-
-        </div>
-        
-
-
+                <div className='mb-12'></div>
             </div>
-
-
-        </div>)}
-
-       {/* iro top sellers */}
-       <p className='mt-24 text-xl font-thin ml-2 md:ml-6'>SIMILAR COLLECTIONS</p>
-
-       <div className='flex justify-center gap-x-48 mt-4'>
-
-        <Link to={'/productdetails'}><BestSellerCard /></Link>
-        <BestSellerCard />
-        <BestSellerCard />
-
-</div>
-
-
-
-       
-<div className='mb-12'></div>
-        
-        </div>
-        
         </>
-  )
+    )
 }
 
 export default ProductDetails
