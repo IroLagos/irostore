@@ -27,7 +27,7 @@ const BestSellerCard = ({title, heading, price, discount, description, imageUrls
     {!discount ? null : <p className={`font-semibold ${isHovered ? 'text-white' : 'text-black'}`}>₦{discount}</p> }
 
      </div>
-     <p className='text-lg'>{color}</p>
+     <p className={`text-lg mt-1 ${isHovered ? 'text-white' : 'text-black'}`}>{color}</p>
      </div>
 
 </div>
