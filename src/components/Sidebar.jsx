@@ -54,6 +54,16 @@ const Sidebar = () => {
         <p className='py-1 text-center'>Categories</p>
         </div></Link>
 
+        <Link to={'/subcategorytable'}> <div className='flex gap-x-3 items-center hover:bg-[#EADDCA]  px-2 mt-6 rounded'>
+        <TbCategory />
+        <p className='py-1 text-center'>Sub-Categories</p>
+        </div></Link>
+
+        <Link to={'/subsubcategorytable'}> <div className='flex gap-x-3 items-center hover:bg-[#EADDCA]  px-2 mt-6 rounded'>
+        <TbCategory />
+        <p className='py-1 text-center'>Sub Sub-Categories</p>
+        </div></Link>
+
         <Link to={'/brandtable'}> <div className='flex gap-x-3 items-center hover:bg-[#EADDCA]  px-2 mt-6 rounded'>
         <TbCategory />
         <p className='py-1 text-center'>Brands</p>

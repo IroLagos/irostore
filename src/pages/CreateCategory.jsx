@@ -19,11 +19,6 @@ const CreateCategory = () => {
 
     const formData = new FormData();
     formData.append('name', name);
-    // formData.append('price', price);
-    // formData.append('description', description);
-    // formData.append('color', color);
-    // formData.append('size', size);
-    // formData.append('categoryId', selectedCategoryId);
     if (file) {
       formData.append('imageUrl', file);
     }
@@ -37,14 +32,7 @@ const CreateCategory = () => {
     if (res){
       navigate('/categorytable')
     }
-  
   }
-
-
-
-      
-   
-
     
   return (
     <div className="w-full">

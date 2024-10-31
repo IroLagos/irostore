@@ -2,6 +2,7 @@ import React,{useEffect, useState} from "react";
 import { URL } from '../url'
 import axios from 'axios'
 import {Link, useNavigate, useParams } from 'react-router-dom'
+import { HiOutlineMinus, HiOutlinePlus } from "react-icons/hi";
 
   
 const available = [
@@ -34,6 +35,9 @@ const CreateProduct = () => {
     const [brand, setBrand]=useState([])
     const [availability, setAvailability]=useState([])
     const [selectedAvailability, setSelectedAvailability]=useState([])
+    const [sub, setSub]=useState([])
+    const [selectedSub, setSelectedSub]=useState([])
+    const [counter, setCounter]=useState(1)
     const [isLoading, setIsLoading] = useState(false)
 
   const fetchCategories = async () => {
@@ -56,6 +60,16 @@ const CreateProduct = () => {
     fetchBrands()
   },[])
 
+
+  const fetchSubs = async () => {
+    const res = await axios.get(`${URL}/api/subs`)
+    console.log("see subcategories",res.data)
+    setSub(res.data)
+  }
+
+  useEffect(() => {
+    fetchSubs()
+  },[])
 
     const handleCategoryId = (e) => {       
         setSelectedCategoryId(e.target.value);
@@ -86,7 +100,9 @@ const CreateProduct = () => {
     formData.append('size', size);
     formData.append('categoryId', selectedCategoryId);
     formData.append('brand', selectedBrand);
+    formData.append('sub', selectedSub);
     formData.append('availability', selectedAvailability);
+    formData.append('counter', counter);
 
     files.forEach((file, index) => {
       formData.append('imageUrl', file);
@@ -118,12 +134,17 @@ const CreateProduct = () => {
           <input onChange={(e)=>setDescription(e.target.value)} className="border border-black px-2 py-1" placeholder="Description" />
           <input onChange={(e)=>setColor(e.target.value)} className="border border-black px-2 py-1" placeholder="Color " />
           <input onChange={(e)=>setSize(e.target.value)} className="border border-black px-2 py-1" placeholder="Size " />
-          {/* <label className='cursor-pointer'>
-                  <input type="file" className="" onChange={handleFileChange} multiple />
-                  <span className='text-blue-500 underline'>Choose files</span>
-                </label> */}
+
+          <p>Quantity</p>
+          <div className="flex gap-x-9">
+          <button className="bg-black text-white px-4"><HiOutlineMinus /></button>
+          <p>{counter}</p>
+          <button className="bg-black text-white px-4"><HiOutlinePlus /></button>
+          </div>
+
+
                  <div className="flex items-center space-x-2">
-            <label className='cursor-pointer bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300'>
+            <label className='cursor-pointer bg-black text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300'>
               <input 
                 type="file" 
                 className="hidden" 
@@ -142,6 +163,13 @@ const CreateProduct = () => {
             ) )}
           </select>
 
+          {/* <select value={selectedSub} onChange={handleCategoryId} className="border border-black px-2 py-1">
+            <option value="">Select Sub Category:</option>
+            {sub?.map(item => (
+              <option key={item.id} value={item.id}>{item.name}</option>
+            ) )}
+          </select> */}
+
           <select value={selectedBrand} onChange={handleBrand} className="border border-black px-2 py-1">
             <option value="">Select Brand:</option>
             {brand.map(item => (
@@ -157,7 +185,7 @@ const CreateProduct = () => {
           </select>
 
 
-<button onClick={handleProduct} className="bg-blue-500 text-white py-1">{isLoading ? <p>Creating ...</p> : <p>Create Product</p>}</button>
+<button onClick={handleProduct} className="bg-black text-white py-1">{isLoading ? <p>Creating ...</p> : <p>Create Product</p>}</button>
 
           
         </div>

@@ -29,6 +29,13 @@ import BeautyCategory from './pages/BeautyCategory'
 import HomeDecorCategory from './pages/HomeDecorCategory'
 import DressesCategory from './pages/DressesCategory'
 import POS from './pages/POS'
+import Blogs from './pages/Blogs'
+import BlogDetails from './pages/BlogDetails'
+import ViewProduct from './pages/ViewProduct'
+import CreateSubCategory from './pages/CreateSubCategory'
+import SubCategoryTable from './pages/SubCategoryTable'
+import CreateSubSubCategory from './pages/CreateSubSubCategory'
+import SubSubCategoryTable from './pages/SubSubCategoryTable'
 
 const App = () => {
   return (
@@ -47,13 +54,20 @@ const App = () => {
       <Route exact path="/homedecorcategory" element={<HomeDecorCategory/>}/>
       <Route exact path="/beauty" element={<Beauty/>}/>
       <Route exact path="/beautycategory" element={<BeautyCategory/>}/>
+      <Route exact path="/posts" element={<Blogs/>}/>
+      <Route exact path="/blogdetails/:id" element={<BlogDetails/>}/>
       <Route exact path='/admin' element={<AdminLogin />} />
       <Route exact path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}/>
       <Route exact path="/producttable" element={<ProtectedRoute><ProductTable /></ProtectedRoute>}/>
       <Route exact path="/categorytable" element={<ProtectedRoute><CategoryTable /></ProtectedRoute>}/>
       <Route exact path="/createcategory" element={<ProtectedRoute><CreateCategory /></ProtectedRoute>}/>
       <Route exact path="/editcategory/:id" element={<ProtectedRoute><EditCategory /></ProtectedRoute>}/>
+      <Route exact path="/subcategorytable" element={<ProtectedRoute><SubCategoryTable /></ProtectedRoute>}/>
+      <Route exact path="/subsubcategorytable" element={<ProtectedRoute><SubSubCategoryTable /></ProtectedRoute>}/>
+      <Route exact path="/createsubcategory" element={<ProtectedRoute><CreateSubCategory /></ProtectedRoute>}/>
+      <Route exact path="/createsubsubcategory" element={<ProtectedRoute><CreateSubSubCategory /></ProtectedRoute>}/>
       <Route exact path="/createProduct" element={<ProtectedRoute><CreateProduct /></ProtectedRoute>}/>
+      <Route exact path="/viewproduct/:id" element={<ProtectedRoute><ViewProduct /></ProtectedRoute>}/>
       <Route exact path="/editproduct/:id" element={<ProtectedRoute><EditProduct /></ProtectedRoute>}/>
       <Route exact path="/createbanner" element={<ProtectedRoute><CreateBanner /></ProtectedRoute>}/>
       <Route exact path="/purchasetable" element={<ProtectedRoute><PurchaseTable /></ProtectedRoute>}/>

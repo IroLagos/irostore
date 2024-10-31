@@ -5,6 +5,7 @@ import notyet from '../assets/notyet.png'
 const BestSellerCard = ({title, heading, price, discount, description, imageUrls, color}) => {
   const [isHovered, setIsHovered] = useState(false)
 
+  console.log("checking this picture")
 
   return (
     <div onMouseEnter={() => setIsHovered(true)}
@@ -14,7 +15,7 @@ const BestSellerCard = ({title, heading, price, discount, description, imageUrls
         // onMouseLeave={() => setIsHovered(false)}
         
         >
-  <img src={imageUrls && imageUrls.length > 1 ? (isHovered ? imageUrls[1] : imageUrls[0]) : notyet}
+  <img src={imageUrls ? (isHovered ? imageUrls[1] : imageUrls[0]) : notyet}
    className='w-[370px] h-[350px] rounded' />
   <p className={`text-xl mt-1 ${isHovered ? 'text-white' : 'text-black'}`}>{title}</p>
   <p className={`text-sm mt-1 ${isHovered ? 'text-white' : 'text-black'}`}>{heading?.length <= 39 ? heading?.slice(0, 39) : heading?.slice(0, 39)+"..."} </p>
